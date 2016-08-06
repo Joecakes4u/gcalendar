@@ -46,3 +46,4 @@ class Calendar:
         self.credentials = self.get_credentials()
         self.http = self.credentials.authorize(httplib2.Http())
         self.service = discovery.build('calendar', 'v3', http=self.http)
+        print type(self.service)

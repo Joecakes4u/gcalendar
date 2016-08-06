@@ -104,6 +104,7 @@ def main():
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
+    print(type(service))
     create_event(http, credentials, service)
     get_events(10, service)
 

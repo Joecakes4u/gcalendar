@@ -1,15 +1,15 @@
+import datetime
+import oauth2client
+from oauth2client import client
+from oauth2client import tools
+
 class Event:
     """Class which handles event generation and list events"""
 
     def __init__(self):
         """Instantiate Event"""
-        import datetime
-        import httplib2
-        import oauth2client
-        from oauth2client import client
-        from oauth2client import tools
 
-    def get_events(max_results, service):
+    def get_events(self, max_results, service):
         """Gets events by making Calendar API call"""
         now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
         print('Getting the upcoming 10 events')
@@ -24,9 +24,12 @@ class Event:
           start = event['start'].get('dateTime', event['start'].get('date'))
           print(start, event['summary'])
 
-    def create(http, credentials, service, summary, location, description, start_dt, end_dt, rec_freq, rec_count, time_z='America/Los_Angeles'):
+    def create(self, cal, summary, location, description, start_dt, end_dt, rec_freq, rec_count, time_z='America/Los_Angeles'):
         """Create event creation request, make request, confirm request sent"""
 
+        http = cal.http
+        credentials = cal.credentials
+        service = cal.service
         event = {
             'summary': summary,
             'location': location,
